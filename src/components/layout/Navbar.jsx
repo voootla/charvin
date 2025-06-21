@@ -1,61 +1,50 @@
-
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Coffee } from 'lucide-react';
+import { UtensilsCrossed, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 
 function Navbar() {
   const { toast } = useToast();
-  const location = useLocation();
-
-  const handleContactClick = () => {
+  
+  const handleActionClick = (feature) => {
     toast({
-      title: "🚧 Contact feature coming soon!",
+      title: `🚧 ${feature} is coming soon!`,
       description: "This feature isn't implemented yet—but don't worry! You can request it in your next prompt! 🚀",
     });
   };
-
-  const navLinks = [
-    { href: "/#about", label: "About" },
-    { href: "/#locations", label: "Locations" },
-    { href: "/#services", label: "Services" },
-    { href: "/menu", label: "Menu" },
-  ];
 
   return (
     <motion.nav 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 z-50"
+      className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-md"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <Coffee className="h-8 w-8 text-amber-600" />
-            <span className="font-display text-2xl font-bold text-gray-900">CHARVIN</span>
-            <span className="text-sm text-gray-600 font-medium hidden sm:inline">A CREATIVE COMPANY</span>
+        <div className="flex justify-between items-center h-20">
+          <Link to="/" className="flex items-center">
+            <div className="flex items-center space-x-2">
+              {/* <UtensilsCrossed className="h-8 w-8 text-brand-purple" /> */}
+              <div>
+                <span className="block font-display text-3xl font-black text-brand-purple leading-none">CHARVIN</span>
+                <span className="block text-xs font-semibold text-brand-purple-light tracking-widest">A CREATIVE COMPANY</span>
+              </div>
+            </div>
           </Link>
           
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.href} 
-                to={link.href} 
-                className={`font-medium transition-colors
-                  ${(location.pathname + location.hash === link.href) || (location.pathname === link.href && link.href === "/menu")
-                    ? 'text-amber-600' 
-                    : 'text-gray-700 hover:text-amber-600'}`
-                }
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Button onClick={handleContactClick} className="coffee-gradient text-white hover:opacity-90">
-              Contact Us
+             <Link to="/" className="font-semibold text-brand-purple hover:text-brand-purple-light transition-colors">Our Brands</Link>
+             <Link to="/about" className="font-semibold text-brand-purple hover:text-brand-purple-light transition-colors">About Us</Link>
+            <Button onClick={() => handleActionClick('Contact')} className="bg-brand-purple hover:bg-brand-purple-light text-white rounded-full font-bold px-6 py-3">
+              Contact
             </Button>
+          </div>
+          <div className="md:hidden">
+             <Button onClick={() => handleActionClick('Mobile Menu')} variant="ghost" size="icon">
+                <Menu className="h-6 w-6 text-brand-purple" />
+             </Button>
           </div>
         </div>
       </div>
