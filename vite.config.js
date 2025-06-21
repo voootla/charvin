@@ -196,6 +196,7 @@ export default defineConfig({
 		react(),
 		addTransformIndexHtml
 	],
+	base: '/charvin/',
 	server: {
 		cors: true,
 		headers: {
